@@ -28,7 +28,7 @@ class LiveCoinWatchAPI:
         url = self.api_base_url + url
         response = self.session.post(
             url, headers=self.headers, data=json.dumps(payload))
-        return (response.json())
+        return (response)
 
     def status(self):
         url = '/status'
@@ -40,28 +40,38 @@ class LiveCoinWatchAPI:
         payload = {}
         return self.__request(url, payload)
 
-    def overview(self, currency):
+    def overview(self, **kwargs):
         url = '/overview'
-        payload = {'currency': currency}
-        return self.__request(url, payload)
+        return self.__request(url, kwargs)
 
     def overview_history(self, **kwargs):
         url = '/overview/history'
-        payload = {}
-        for key, value in kwargs.items():
-            payload[key] = value
-
-        return self.__request(url, payload)
+        return self.__request(url, kwargs)
 
     def coin_single(self, **kwargs):
         url = 'coin/single'
-        payload = {}
-        for key, value in kwargs.items():
-            payload[key] = value
+        return self.__request(url, kwargs)
 
+    def coin_single_history(self, **kwargs):
+        url = 'coin/single/history'
+        return self.__request(url, kwargs)
+
+    def coin_list(self, **kwargs):
+        url = "coin/list"
+        return self.__request(url, kwargs)
+
+    def fiats_all(self):
+        url = "fiats/all"
+        payload = {}
         return self.__request(url, payload)
+
+    def exchanges_single(self, **kwargs):
+        url = 'exchanges/single'
+        return self.__request(url, kwargs)
+
+    def exchanges_list(self, **kwargs):
+        url = 'exchanges/list'
+        return self.__request(url, kwargs)
 
 
 lcw = LiveCoinWatchAPI()
-
-print(lcw.overview_history(currency='BTC', start=1606232700000, end=1606233000000))
