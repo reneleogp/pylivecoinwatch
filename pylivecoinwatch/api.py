@@ -25,7 +25,7 @@ class LiveCoinWatchAPI:
         self.headers['x-api-key'] = user_api_key
 
     def __request(self, url, payload):
-        url = self.api_base_url + url
+        url = "{}{}".format(self.api_base_url, url)
         response = self.session.post(
             url, headers=self.headers, data=json.dumps(payload))
         return (response)
