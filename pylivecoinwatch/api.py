@@ -15,7 +15,6 @@ class LiveCoinWatchAPI:
         self.api_base_url = LiveCoinWatchAPI.base_url
         self.request_timeout = 120
         self.session = requests.Session()
-        self.session.mount('http://', HTTPAdapter(max_retries=5))
         self.headers = {
             'content-type': 'application/json',
             'x-api-key': LiveCoinWatchAPI.api_key
@@ -25,39 +24,39 @@ class LiveCoinWatchAPI:
         self.headers['x-api-key'] = user_api_key
 
     def __request(self, url, payload):
-        url = "{}{}".format(self.api_base_url, url)
+        url = "{}/{}".format(self.api_base_url, url)
         response = self.session.post(
             url, headers=self.headers, data=json.dumps(payload))
         return (response)
 
     def status(self):
-        url = '/status'
+        url = 'status'
         payload = {}
         return self.__request(url, payload)
 
     def credits(self):
-        url = '/credits'
+        url = 'credits'
         payload = {}
         return self.__request(url, payload)
 
     def overview(self, **kwargs):
-        url = '/overview'
+        url = 'overview'
         return self.__request(url, kwargs)
 
     def overview_history(self, **kwargs):
-        url = '/overview/history'
+        url = 'overview/history'
         return self.__request(url, kwargs)
 
     def coin_single(self, **kwargs):
-        url = 'coin/single'
+        url = 'coins/single'
         return self.__request(url, kwargs)
 
     def coin_single_history(self, **kwargs):
-        url = 'coin/single/history'
+        url = 'coins/single/history'
         return self.__request(url, kwargs)
 
     def coin_list(self, **kwargs):
-        url = "coin/list"
+        url = "coins/list"
         return self.__request(url, kwargs)
 
     def fiats_all(self):
