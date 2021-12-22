@@ -5,10 +5,10 @@ import unittest
 import unittest.mock as mock
 import json
 
-from pylivecoinwatch.api import LiveCoinWatchAPI
+import pylivecoinwatch as api
 from requests.exceptions import HTTPError
 
-lcw = LiveCoinWatchAPI()
+lcw = api.LiveCoinWatchAPI()
 
 
 class TestWrapper(unittest.TestCase):
