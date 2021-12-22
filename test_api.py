@@ -1,17 +1,24 @@
 import pytest
-import requests
-import responses
 import unittest
-import unittest.mock as mock
 import json
 
 import pylivecoinwatch as api
-from requests.exceptions import HTTPError
+# from requests.exceptions import HTTPError
 
-lcw = api.LiveCoinWatchAPI()
+lcw = api.LiveCoinWatchAPI("8acf6a03-a29b-4cdd-b08c-58bf2ed72678")
 
 
 class TestWrapper(unittest.TestCase):
+
+    def test_bad_init(self):
+        lcw_test = api.LiveCoinWatchAPI()
+        response = lcw_test.overview(currency="USD")
+        self.assertEqual(response.status_code, 401)
+
+    def test_set_api_key(self):
+        lcw.set_api_key("test")
+        response = lcw.overview(currency="USD")
+        self.assertEqual(response.status_code, 401)
 
     def test_status(self):
         response = lcw.status()

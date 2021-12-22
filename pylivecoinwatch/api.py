@@ -9,24 +9,28 @@ from requests.adapters import HTTPAdapter
 
 class LiveCoinWatchAPI:
     base_url = 'https://api.livecoinwatch.com'
-    api_key = '8acf6a03-a29b-4cdd-b08c-58bf2ed72678'
+    global_api_key = "NO_API"
 
-    def __init__(self):
+    def __init__(self, api_key=None):
         self.api_base_url = LiveCoinWatchAPI.base_url
         self.request_timeout = 120
-        self.session = requests.Session()
         self.headers = {
             'content-type': 'application/json',
-            'x-api-key': LiveCoinWatchAPI.api_key
+            'x-api-key': LiveCoinWatchAPI.global_api_key if api_key == None else api_key
         }
+        self.session = requests.Session()
+        self.session.mount('http://', HTTPAdapter(max_retries=5))
+        self.session.headers.update(self.headers)
 
-    def set_api(self, user_api_key):
+    def set_api_key(self, user_api_key):
         self.headers['x-api-key'] = user_api_key
+        self.session.headers.update(self.headers)
 
     def __request(self, url, payload):
         url = "{}/{}".format(self.api_base_url, url)
-        response = self.session.post(
-            url, headers=self.headers, data=json.dumps(payload))
+        response = self.session.post(url, data=json.dumps(
+            payload), timeout=self.request_timeout)
+
         return (response)
 
     def status(self):
