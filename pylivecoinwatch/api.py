@@ -26,7 +26,8 @@ class LiveCoinWatchAPI:
 
     def __request(self, url, payload):
         url = self.api_base_url + url
-        response = self.session.post(url, headers=self.headers, data=payload)
+        response = self.session.post(
+            url, headers=self.headers, data=json.dumps(payload))
         return (response.json())
 
     def status(self):
@@ -44,7 +45,23 @@ class LiveCoinWatchAPI:
         payload = {'currency': currency}
         return self.__request(url, payload)
 
+    def overview_history(self, **kwargs):
+        url = '/overview/history'
+        payload = {}
+        for key, value in kwargs.items():
+            payload[key] = value
+
+        return self.__request(url, payload)
+
+    def coin_single(self, **kwargs):
+        url = 'coin/single'
+        payload = {}
+        for key, value in kwargs.items():
+            payload[key] = value
+
+        return self.__request(url, payload)
+
 
 lcw = LiveCoinWatchAPI()
 
-print(lcw.credits())
+print(lcw.overview_history(currency='BTC', start=1606232700000, end=1606233000000))
