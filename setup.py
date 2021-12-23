@@ -5,7 +5,7 @@ setup(
     version='0.0.1',
     license='MIT',
     description='Python wrapper around Live Coin Watch API',
-    long_description=open('README.md').read(),
+    long_description=open('README.md').read() + "\n\n" + open("CHANGELOG.md").read(),
     long_description_content_type="text/markdown",
     author='Rene Gonzalez',
     url='https://github.com/PlayErphil/LCW-API-Wrapper',
