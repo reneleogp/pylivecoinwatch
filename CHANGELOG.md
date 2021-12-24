@@ -1,5 +1,4 @@
-# VERSION 0.0.2
-- CHANGELOG added to description
-
-# VERSION 0.0.1
-- Methods added
+# VERSION 0.1
+- All endpoints added
+- Tests implemented
+- First release

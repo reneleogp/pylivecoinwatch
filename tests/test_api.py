@@ -15,9 +15,9 @@ lcw_without_key = api.LiveCoinWatchAPI()
 class TestWrapper(unittest.TestCase):
 
     def test_bad_init(self):
-        response = lcw_without_key.overview(currency="USD")
-        self.assertEqual(response.status_code, 401)
-
+        with pytest.raises(ValueError):
+            response = lcw_without_key.overview(currency="USD")
+            
     def test_set_api_key(self):
         lcw_without_key.set_api_key(api_key)
         response = lcw_without_key.overview(currency="USD")

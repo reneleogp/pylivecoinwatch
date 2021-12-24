@@ -1,22 +1,24 @@
+from os import error
 import requests
 import json
+import warnings
 
 from requests.adapters import HTTPAdapter
 # from requests.packages.urllib3.util.retry import Retry
 
 # from .utils import func_args_preprocessing
-
+SANDBOX_API_KEY = "NO_API"
 
 class LiveCoinWatchAPI:
     base_url = 'https://api.livecoinwatch.com'
-    global_api_key = "NO_API"
+    
 
     def __init__(self, api_key=None):
         self.api_base_url = LiveCoinWatchAPI.base_url
         self.request_timeout = 120
         self.headers = {
             'content-type': 'application/json',
-            'x-api-key': LiveCoinWatchAPI.global_api_key if api_key == None else api_key
+            'x-api-key': SANDBOX_API_KEY if api_key == None else api_key
         }
         self.session = requests.Session()
         self.session.mount('http://', HTTPAdapter(max_retries=5))
@@ -28,10 +30,25 @@ class LiveCoinWatchAPI:
 
     def __request(self, url, payload):
         url = "{}/{}".format(self.api_base_url, url)
-        response = self.session.post(url, data=json.dumps(
-            payload), timeout=self.request_timeout)
+        try:
+            response = self.session.post(url, data=json.dumps(payload),timeout=self.request_timeout)
+        except requests.exceptions.RequestException:
+            raise
 
-        return (response)
+        try:
+            response.raise_for_status()
+            content = json.loads(response.content.decode('utf-8'))
+            return response
+        except Exception as e:
+            # check if json (with error message) is returned
+            try:
+                content = json.loads(response.content.decode('utf-8'))
+                raise ValueError(content)
+            # if no json
+            except json.decoder.JSONDecodeError:
+                pass
+
+            raise
 
     def status(self):
         url = 'status'
