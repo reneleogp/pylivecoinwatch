@@ -20,7 +20,7 @@ class TestWrapper(unittest.TestCase):
 
     def test_set_api_key(self):
         lcw_without_key.set_api_key(api_key)
-        response = lcw.overview(currency="USD")
+        response = lcw_without_key.overview(currency="USD")
         self.assertEqual(response.status_code, 200)
 
     def test_status(self):
