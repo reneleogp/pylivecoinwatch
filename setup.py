@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pylivecoinwatch',
-    version='0.0.2',
+    version='0.0.3',
     license='MIT',
     description='Python wrapper around Live Coin Watch API',
     long_description=open('README.md').read() + "\n\n" + open("CHANGELOG.md").read(),
