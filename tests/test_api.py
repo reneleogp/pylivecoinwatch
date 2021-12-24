@@ -2,7 +2,7 @@ import pytest
 import unittest
 import json
 
-import pylivecoinwatch as api
+from pylivecoinwatch import LiveCoinWatchAPI
 # from requests.exceptions import HTTPError
 
 # Enter a valid api key to test
@@ -12,13 +12,13 @@ api_key = "8acf6a03-a29b-4cdd-b08c-58bf2ed72678"
 class TestWrapper(unittest.TestCase):
 
     def setUp(self):
-        self.lcw = api.LiveCoinWatchAPI(api_key)
-        self.lcw_without_key = api.LiveCoinWatchAPI()
+        self.lcw = LiveCoinWatchAPI(api_key)
+        self.lcw_without_key = LiveCoinWatchAPI()
 
     def test_bad_init(self):
         with pytest.raises(ValueError):
             response = self.lcw_without_key.overview(currency="USD")
-            
+
     def test_set_api_key(self):
         self.lcw_without_key.set_api_key(api_key)
         response = self.lcw_without_key.overview(currency="USD")
