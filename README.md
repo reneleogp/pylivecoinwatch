@@ -2,8 +2,6 @@
 
 Python3 wrapper around the [LiveCoinWatch](https://www.livecoinwatch.com/) API (V3)
 
-
-
 [![PyPi Version](https://img.shields.io/pypi/v/pylivecoinwatch.svg)](https://pypi.python.org/pypi/pylivecoinwatch/)
 ![GitHub](https://img.shields.io/github/license/PlayErphil/LCW-API-Wrapper)
 
@@ -28,3 +26,34 @@ from pylivecoinwatch import LiveCoinWatchAPI
 lcw = LiveCoinWatchAPI("<YOUR_API_KEY>")
 ```
 
+**The package has no API key, so make sure to get one from the [API playground](https://www.livecoinwatch.com/tools/api) and pass it as a parameter when creating the class.**
+
+### Examples
+If your API key is wrong or you didn't specify one, the class will raise 401 Error.
+
+401 Error example:
+```python
+>>> from pylivecoinwatch import LiveCoinWatchAPI
+>>> lcw = LiveCoinWatchAPI()
+>>> lcw.overview()
+```
+
+This will raise an Error that looks like the following:
+```python
+Traceback (most recent call last):
+
+raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.livecoinwatch.com/overview
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+
+ValueError: {'error': {'code': 401, 'status': 'Unauthorized', 'description': 'The requester is not authorized to access the resource. This is similar to 403 but is used in cases where authentication is expected but has failed or has not been provided.'}}
+```
+
+If you wished to change your API key at any point you can use the following function:
+```python
+lcw.set_api_key("<NEW_API_KEY>")
+# This will change your API key to <NEW_API_KEY>
+```
