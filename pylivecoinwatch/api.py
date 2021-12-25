@@ -9,9 +9,9 @@ from requests.adapters import HTTPAdapter
 # from .utils import func_args_preprocessing
 SANDBOX_API_KEY = "NO_API"
 
+
 class LiveCoinWatchAPI:
     base_url = 'https://api.livecoinwatch.com'
-    
 
     def __init__(self, api_key=None):
         self.api_base_url = LiveCoinWatchAPI.base_url
@@ -31,14 +31,16 @@ class LiveCoinWatchAPI:
     def __request(self, url, payload):
         url = "{}/{}".format(self.api_base_url, url)
         try:
-            response = self.session.post(url, data=json.dumps(payload),timeout=self.request_timeout)
+            response = self.session.post(url, data=json.dumps(
+                payload), timeout=self.request_timeout)
         except requests.exceptions.RequestException:
             raise
 
         try:
+            # if(response.status_code == 500 and self.__request('status', {}).status_code == 200):
             response.raise_for_status()
             content = json.loads(response.content.decode('utf-8'))
-            return response
+            return content
         except Exception as e:
             # check if json (with error message) is returned
             try:
@@ -62,36 +64,47 @@ class LiveCoinWatchAPI:
 
     def overview(self, **kwargs):
         url = 'overview'
-        return self.__request(url, kwargs)
+        payload = kwargs
+        return self.__request(url, payload)
 
-    def overview_history(self, **kwargs):
+    def overview_history(self, start, end, **kwargs):
         url = 'overview/history'
-        return self.__request(url, kwargs)
+        payload = kwargs
+        payload['start'] = start
+        payload['end'] = end
+        return self.__request(url, payload)
 
-    def coin_single(self, **kwargs):
+    def coin_single(self, code, **kwargs):
         url = 'coins/single'
-        return self.__request(url, kwargs)
+        payload = kwargs
+        payload['code'] = code
+        return self.__request(url, payload)
 
-    def coin_single_history(self, **kwargs):
+    def coin_single_history(self, code, start, end, **kwargs):
         url = 'coins/single/history'
-        return self.__request(url, kwargs)
+        payload = kwargs
+        payload['code'] = code
+        payload['start'] = start
+        payload['end'] = end
+        return self.__request(url, payload)
 
     def coin_list(self, **kwargs):
         url = "coins/list"
-        return self.__request(url, kwargs)
+        payload = kwargs
+        return self.__request(url, payload)
 
     def fiats_all(self):
         url = "fiats/all"
         payload = {}
         return self.__request(url, payload)
 
-    def exchanges_single(self, **kwargs):
+    def exchanges_single(self, code, **kwargs):
         url = 'exchanges/single'
-        return self.__request(url, kwargs)
+        payload = kwargs
+        payload['code'] = code
+        return self.__request(url, payload)
 
     def exchanges_list(self, **kwargs):
         url = 'exchanges/list'
-        return self.__request(url, kwargs)
-
-
-lcw = LiveCoinWatchAPI()
+        payload = kwargs
+        return self.__request(url, payload)
