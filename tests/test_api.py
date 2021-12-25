@@ -21,69 +21,75 @@ class TestWrapper(unittest.TestCase):
 
     def test_set_api_key(self):
         self.lcw_without_key.set_api_key(api_key)
-        response = self.lcw_without_key.overview(currency="USD")
-        self.assertEqual(response, {})
+        response = self.lcw_without_key.credits()
+        expected = {'dailyCreditsRemaining', 'dailyCreditsLimit'}
+        for item in expected:
+            self.assertIn(item, response)
 
     def test_status(self):
         response = self.lcw.status()
-        self.assertIs(response, {})
+        self.assertEqual(response, {})
 
     def test_credits(self):
+        expected = {'dailyCreditsRemaining', 'dailyCreditsLimit'}
         response = self.lcw.credits()
-        self.assertEqual(response, 200)
+        for item in expected:
+            self.assertIn(item, response)
 
     def test_overview(self):
+        expected = {'cap', 'volume', 'liquidity', 'btcDominance'}
         response = self.lcw.overview(currency="USD")
-        self.assertEqual(response.status_code, 200)
+        for item in expected:
+            self.assertIn(item, response)
 
     def test_overview_history(self):
+        expected_response = [{'date': 1606232700000, 'cap': 581171117946, 'volume': 56158051529, 'liquidity': 1295845494, 'btcDominance': 0.6144324552690166}, {
+            'date': 1606233000000, 'cap': 582049608242, 'volume': 56643100921, 'liquidity': 1265635689, 'btcDominance': 0.6128301980588141}]
         response = self.lcw.overview_history(
             currency="USD", start=1606232700000, end=1606233000000)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response, expected_response)
 
     def test_coins_single(self):
-        response = self.lcw.coin_single(currency='USD', code='ETH', meta=True)
-        self.assertEqual(response.status_code, 200)
-
+        expected = {'cap', 'volume', 'cap'}
         response = self.lcw.coin_single(currency='USD', code='ETH', meta=False)
-        self.assertEqual(response.status_code, 200)
+        for item in expected:
+            self.assertIn(item, response)
 
     def test_coins_single_history(self):
-        response = self.lcw.coin_single_history(
-            currency='USD', code='BTC', meta=True, start=1606232700000, end=1606233000000)
-        self.assertEqual(response.status_code, 200)
-
+        expected_response = {'history': [{'date': 1606232700000, 'rate': 19247.121245359063, 'volume': 17814690122, 'cap': 357090396931}, {
+            'date': 1606233000000, 'rate': 19225.948291118122, 'volume': 17866092171, 'cap': 356697576699}]}
         response = self.lcw.coin_single_history(
             currency='USD', code='BTC', meta=False, start=1606232700000, end=1606233000000)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response, expected_response)
 
     def test_coins_list(self):
-        response = self.lcw.coin_list(
-            currency="USD", sort="rank", order="ascending", meta=True)
-        self.assertEqual(response.status_code, 200)
-
+        expected = {'code', 'rate', 'cap', 'volume'}
         response = self.lcw.coin_list(
             currency="USD", sort="rank", order="ascending", meta=False)
-        self.assertEqual(response.status_code, 200)
+        for item in expected:
+            for item2 in response:
+                self.assertIn(item, item2)
 
     def test_fiats_all(self):
+        expected = {'code', 'countries', 'name', 'flag'}
         response = self.lcw.fiats_all()
-        self.assertEqual(response.status_code, 200)
+        for item in expected:
+            for item2 in response:
+                self.assertIn(item, item2)
 
     def test_exchanges_single(self):
-        response = self.lcw.exchanges_single(
-            currency="ETH", code='gemini', meta=True)
-        self.assertEqual(response.status_code, 200)
-
+        expected = {'code', 'markets', 'bidTotal', 'volume',
+                    'askTotal', 'depth', 'visitors', 'volumePerVisitor'}
         response = self.lcw.exchanges_single(
             currency="ETH", code='gemini', meta=False)
-        self.assertEqual(response.status_code, 200)
+        for item in expected:
+            self.assertIn(item, response)
 
     def test_exchanges_list(self):
-        response = self.lcw.exchanges_list(
-            currency="USD", sort="visitors", order="descending", meta=True)
-        self.assertEqual(response.status_code, 200)
-
+        expected = {'code', 'markets', 'bidTotal',
+                    'askTotal', 'visitors', 'volumePerVisitor'}
         response = self.lcw.exchanges_list(
             currency="USD", sort="visitors", order="descending", meta=False)
-        self.assertEqual(response.status_code, 200)
+        for item in expected:
+            for item2 in response:
+                self.assertIn(item, item2)
