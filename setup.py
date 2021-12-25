@@ -2,10 +2,11 @@ from setuptools import setup, find_packages
 
 setup(
     name='pylivecoinwatch',
-    version='0.1',
+    version='0.2',
     license='MIT',
     description='Python wrapper around Live Coin Watch API',
-    long_description=open('README.md').read() + "\n\n" + open("CHANGELOG.md").read(),
+    long_description=open('README.md').read() + "\n\n" +
+    open("CHANGELOG.md").read(),
     long_description_content_type="text/markdown",
     author='Rene Gonzalez',
     url='https://github.com/PlayErphil/LCW-API-Wrapper',
