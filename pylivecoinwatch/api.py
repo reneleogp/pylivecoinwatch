@@ -74,13 +74,13 @@ class LiveCoinWatchAPI:
         payload['end'] = end
         return self.__request(url, payload)
 
-    def coin_single(self, code, **kwargs):
+    def coins_single(self, code, **kwargs):
         url = 'coins/single'
         payload = kwargs
         payload['code'] = code
         return self.__request(url, payload)
 
-    def coin_single_history(self, code, start, end, **kwargs):
+    def coins_single_history(self, code, start, end, **kwargs):
         url = 'coins/single/history'
         payload = kwargs
         payload['code'] = code
@@ -88,7 +88,7 @@ class LiveCoinWatchAPI:
         payload['end'] = end
         return self.__request(url, payload)
 
-    def coin_list(self, **kwargs):
+    def coins_list(self, **kwargs):
         url = "coins/list"
         payload = kwargs
         return self.__request(url, payload)
