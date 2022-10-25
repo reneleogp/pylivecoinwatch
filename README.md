@@ -3,6 +3,7 @@
 Python3 wrapper around the [LiveCoinWatch](https://www.livecoinwatch.com/) API
 
 [![PyPi Version](https://img.shields.io/pypi/v/pylivecoinwatch.svg)](https://pypi.python.org/pypi/pylivecoinwatch/)
+[![Downloads](https://pepy.tech/badge/pylivecoinwatch)](https://pepy.tech/project/pylivecoinwatch)
 ![GitHub](https://img.shields.io/github/license/PlayErphil/pylivecoinwatch.svg)
 
 ## Installation
