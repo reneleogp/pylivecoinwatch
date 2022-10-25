@@ -1,6 +1,4 @@
 name: Tests
-env:
-  LCW_API_KEY: ${{ secrets.LCW_API_KEY }}
 
 on:
   - pull_request
