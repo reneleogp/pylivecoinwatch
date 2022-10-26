@@ -9,7 +9,7 @@ from pylivecoinwatch import LiveCoinWatchAPI
 
 # Enter a valid api key to test
 # api_key = os.environ["LCW_API_KEY"]
- api_key = "YOUR_API_KEY"
+api_key = "YOUR_API_KEY"
 
 
 class TestWrapper(unittest.TestCase):
