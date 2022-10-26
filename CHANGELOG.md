@@ -1,3 +1,10 @@
+# VERSION 1.2
+
+- Documentation updated
+- coins/map enpoint added
+- plataforms/all enpoint added
+- coins/contract enpoint added
+
 # VESION 1.0.1
 
 - Some test fixed

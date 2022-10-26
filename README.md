@@ -106,10 +106,13 @@ https://livecoinwatch.github.io/lcw-api-docs/
 - _status_
 
   - **/status** (Check API server status)
+
     ```python
     lcw.status()
     ```
+
     Example:
+
     ```python
     >>> lcw.status()
     {}
@@ -118,12 +121,16 @@ https://livecoinwatch.github.io/lcw-api-docs/
 - _credits_
 
   - **/credits** (Get your API key related information.)
+
     ```python
     lcw.credits()
     ```
+
     Example:
+
     ```python
     >>> lcw.credits()
+
     {'dailyCreditsRemaining': 9995, 'dailyCreditsLimit': 10000}
     ```
 
@@ -139,16 +146,21 @@ https://livecoinwatch.github.io/lcw-api-docs/
 
     ```python
     >>> lcw.overview()
+
     {'cap': 2401907143522, 'volume': 70680847315, 'liquidity': 5779984192, 'btcDominance': 0.3927240083177512}
     ```
 
   - **/overview/history** (Get historical aggregated data of entire market.)
+
     ```python
     lcw.overview_history()
     ```
+
     Example:
+
     ```python
     >>> lcw.overview_history(start="1606232700000", end="1606232700000")
+
     [{'date': 1606232700000, 'cap': 581171117946, 'volume': 56158051529, 'liquidity': 1295845494, 'btcDominance': 0.6144324552690166}]
     ```
 
@@ -164,6 +176,7 @@ https://livecoinwatch.github.io/lcw-api-docs/
 
     ```python
     >>> lcw.coins_single(code="BTC")
+
     {'rate': 49810.12848625034, 'volume': 18780569901, 'cap': 942054277908}
     ```
 
@@ -177,28 +190,65 @@ https://livecoinwatch.github.io/lcw-api-docs/
 
     ```python
     >>> lcw.coins_single_history(start=1617035100000, end=1617035400000, code="ETH")
+
     {'history': [{'date': 1617035100000, 'rate': 1783.635049099136, 'volume': 7615440037, 'cap': 205564989970}, {'date': 1617035400000, 'rate': 1785.1535622292442, 'volume': 7682072359, 'cap': 205741029536}]}
     ```
 
+  - **/coins/map** (Assorted information for a custom map of coins.)
+
+    ```python
+    lcw.coins_map()
+    ```
+
+    Example:
+
+    ```python
+    >>> lcw.coins_map(currency="USD", codes=["ETH", "BTC"], code="ETH", sort="rank", order="ascending", offset=0, limit=0, meta=False)
+
+    [{'code': 'BTC', 'rate': 20179.546446594384, 'volume': 21739986652, 'cap': 387234256303, 'delta': {'hour': 0.999, 'day': 1.0437, 'week': 1.0461, 'month': 1.0641, 'quarter': 0.8685, 'year': 0.3216}}, {'code': 'ETH', 'rate': 1480.8660158628147, 'volume': 17513723105, 'cap': 181219294947, 'delta': {'hour': 0.9999, 'day': 1.1029, 'week': 1.1356, 'month': 1.131, 'quarter': 0.8946, 'year': 0.3496}}]
+    ```
+
   - **/coins/list** (Get assorted information for a list of coins.)
+
     ```python
     lcw.coins_list()
     ```
+
     Example:
+
     ```python
     >>> lcw.coins_list(limit=2, sort="rank", order="ascending")
+
     [{'code': 'BTC', 'rate': 49741.45295774467, 'volume': 18786805838, 'cap': 940755424093}, {'code': 'ETH', 'rate': 3944.8091570473284, 'volume': 10458770693, 'cap': 469117284843}]
+    ```
+
+  - **/coins/contract** (Get all information about a single coin at latest moment in time, based on its platform identifier and contract address.)
+
+    ```python
+    lcw.coins_contract()
+    ```
+
+    Example:
+
+    ```python
+    >>> lcw.coins_contract(currency="USD", platform="ETH", address="0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2", meta=False)
+
+    {'rate': 1487.490793378846, 'volume': 17716229188, 'cap': 182029994563, 'liquidity': 665137261, 'delta': {'hour': 1.0014, 'day': 1.1056, 'week': 1.1406, 'month': 1.1301, 'quarter': 0.895, 'year': 0.3517}, 'code': 'ETH'}
     ```
 
 - _fiats_
 
   - **/fiats/all** (Get list of all the fiats.)
+
     ```python
     lcw.fiats_all()
     ```
+
     Example:
+
     ```python
     >>> lcw.fiats_all()
+
     [{'code': 'PAB', 'countries': ['PAN'], 'flag': 'PAN', 'name': 'Panamanian Balboa', 'symbol': 'B/.'}, {'code': 'AZN', 'countries': ['AZE'], 'flag': 'AZE', 'name': 'Azerbaijani Manat', 'symbol': '₼'}    ...............    {'code': 'PKR', 'countries': ['PAK'], 'flag': 'PAK', 'name': 'Pakistani Rupee', 'symbol': '₨'}]
     ```
 
@@ -214,17 +264,38 @@ https://livecoinwatch.github.io/lcw-api-docs/
 
     ```python
     >>> lcw.exchanges_single(code="kucoin")
+
     {'code': 'kucoin', 'markets': 947, 'volume': 2916293370, 'bidTotal': 40050156.01994438, 'askTotal': 45237792.80490364, 'depth': 85287948.82484803, 'visitors': 94003, 'volumePerVisitor': 31023.407444443263}
     ```
 
   - **/exchanges/list** (Get assorted information on list of exchanges.)
+
     ```python
     lcw.exchanges_list()
     ```
+
     Example:
+
     ```python
     >>> lcw.exchanges_list(sort="visitors", order="descending", limit=2, offset=1)
+
     [{'code': 'binance', 'markets': 1302, 'volume': 16969814270, 'bidTotal': 360409773.5276142, 'askTotal': 307530423.509523, 'depth': 667940197.0371372, 'visitors': 1303774, 'volumePerVisitor': 13015.91707611902}, {'code': 'pancakeswapv2', 'markets': 3416, 'volume': 337585574, 'bidTotal': None, 'askTotal': None, 'depth': 0, 'visitors': 501047, 'volumePerVisitor': 673.7602939444803}]
+    ```
+
+- _platforms_
+
+  - **/platforms/all** (Get a list of all the coin platforms.)
+
+    ```python
+    lcw.platforms_all()
+    ```
+
+    Example:
+
+    ```python
+    >>> lcw.platforms_all()
+
+    [{'code': 'BSC', 'name': 'BNB Smart Chain'}, {'name': 'Ethereum', 'code': 'ETH'}, {'name': 'BNB Beacon Chain', 'code': 'BC'}, {'name': 'Polygon', 'code': 'MATIC'}, {'name': 'Solana', 'code': 'SOL'}, {'name': 'Tron (TRC20)', 'code': 'TRX'}, {'name': 'Fantom', 'code': 'FTM'}, {'name': 'Avalanche C-Chain', 'code': 'AVAX'}, {'name': 'Huobi Eco Chain', 'code': 'HECO'}]
     ```
 
 ## Test

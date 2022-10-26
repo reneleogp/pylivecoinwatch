@@ -67,8 +67,19 @@ class TestWrapper(unittest.TestCase):
         self.assertEqual(response, expected_response)
 
     def test_coins_single(self):
-        expected = {"cap", "volume", "cap"}
+        expected = {"rate", "volume", "cap", "liquidity"}
         response = self.lcw.coins_single(currency="USD", code="ETH", meta=False)
+        for item in expected:
+            self.assertIn(item, response)
+
+    def test_coins_contract(self):
+        expected = {"rate", "cap", "volume", "liquidity"}
+        response = self.lcw.coins_contract(
+            currency="USD",
+            platform="ETH",
+            address="0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+            meta=False,
+        )
         for item in expected:
             self.assertIn(item, response)
 
@@ -116,6 +127,13 @@ class TestWrapper(unittest.TestCase):
             for item2 in response:
                 self.assertIn(item, item2)
 
+    def test_platforms_all(self):
+        expected = {"code", "name"}
+        response = self.lcw.platforms_all()
+        for item in expected:
+            for item2 in response:
+                self.assertIn(item, item2)
+
     def test_exchanges_single(self):
         expected = {
             "code",
@@ -142,6 +160,15 @@ class TestWrapper(unittest.TestCase):
         }
         response = self.lcw.exchanges_list(
             currency="USD", sort="visitors", order="descending", meta=False
+        )
+        for item in expected:
+            for item2 in response:
+                self.assertIn(item, item2)
+
+    def test_coins_map(self):
+        expected = {"code", "rate", "volume", "cap", "delta"}
+        response = self.lcw.coins_map(
+            currency="USD", codes=["ETH", "BNB", "BTC"], meta=False
         )
         for item in expected:
             for item2 in response:
