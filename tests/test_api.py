@@ -8,8 +8,8 @@ from pylivecoinwatch import LiveCoinWatchAPI
 # from requests.exceptions import HTTPError
 
 # Enter a valid api key to test
-api_key = os.environ["LCW_API_KEY"]
-# api_key = "YOUR_API_KEY"
+# api_key = os.environ["LCW_API_KEY"]
+api_key = "4a45cb56-8f86-4801-9ea4-7c68bb328538"
 
 
 class TestWrapper(unittest.TestCase):
