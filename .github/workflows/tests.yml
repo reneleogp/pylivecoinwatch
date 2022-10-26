@@ -1,8 +1,5 @@
 name: Tests
 
-env:
-  LCW_API_KEY: ${{ secrets.LCW_API_KEY }}
-
 on:
   - pull_request
   - push
@@ -26,4 +23,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install tox tox-gh-actions
       - name: Test with tox
+        env:
+          LCW_API_KEY: ${{ secrets.LCW_API_KEY }}
         run: tox
