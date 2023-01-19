@@ -79,7 +79,7 @@ Usage examples:
 >>> lcw.coins_single()
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-TypeError: coin_single() missing 1 required positional argument: 'code'
+TypeError: coins_single() missing 1 required positional argument: 'code'
 
 
 # same endpoint with the required parameters
@@ -90,8 +90,7 @@ TypeError: coin_single() missing 1 required positional argument: 'code'
 # optional parameters can be passed as defined in the API doc (https://livecoinwatch.github.io/lcw-api-docs/)
 >>> lcw.coins_single(currency="EUR", code="BTC", meta='true')
 # OR (also booleans can be used for boolean type arguments)
->>> lcw.coin_single(currency="EUR", code="BTC", meta=True)
-# both return the same thing
+>>> lcw.coins_single(currency="EUR", code="BTC", meta=True)
 {'name': 'Bitcoin', 'symbol': '₿', 'color': '#fa9e32', 'png32': 'https://lcw.nyc3.cdn.digitaloceanspaces.com/production/currencies/32/btc.png', 'png64': 'https://lcw.nyc3.cdn.digitaloceanspaces.com/production/currencies/64/btc.png', 'webp32': 'https://lcw.nyc3.cdn.digitaloceanspaces.com/production/currencies/32/btc.webp', 'webp64': 'https://lcw.nyc3.cdn.digitaloceanspaces.com/production/currencies/64/btc.webp', 'exchanges': 171, 'markets': 4483, 'pairs': 1604, 'allTimeHighUSD': 68780.77475755227, 'circulatingSupply': 18912906, 'totalSupply': 18912906, 'maxSupply': 21000000, 'rate': 43399.258910010154, 'volume': 17172466006, 'cap': 820806104234}
 ```
 

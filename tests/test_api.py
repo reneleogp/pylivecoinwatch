@@ -173,3 +173,9 @@ class TestWrapper(unittest.TestCase):
         for item in expected:
             for item2 in response:
                 self.assertIn(item, item2)
+
+    def test_coin_single(self):
+        expected = {"rate", "volume", "cap", "liquidity"}
+        response = self.lcw.coin_single(currency="USD", code="ETH", meta=False)
+        for item in expected:
+            self.assertIn(item, response)
