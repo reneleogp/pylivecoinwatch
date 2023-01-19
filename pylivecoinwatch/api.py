@@ -128,3 +128,9 @@ class LiveCoinWatchAPI:
         payload = kwargs
         payload["codes"] = codes
         return self.__request(url, payload)
+
+    def coin_single(self, code, **kwargs):
+        url = "coins/single"
+        payload = kwargs
+        payload["code"] = code
+        return self.__request(url, payload)
